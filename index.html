@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Life Line Hospital | Best Multi-Specialty Hospital in Kadapa</title>
+<meta name="description" content="Life Line Hospital Kadapa — 24/7 multi-specialty hospital near 7 Roads Circle, Ganagapeta. Expert care in cardiology, diabetes, pulmonology, neurology and more. Call +91 85568 55699."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="Life Line Hospital photos/Logo.png"/>
+<link rel="apple-touch-icon" href="Life Line Hospital photos/Logo.png"/>
+<link rel="stylesheet" href="lifeline-hospital.css"/>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Fallback: if JS fails or takes too long, reveal the page -->
+<noscript><style>#loader,.door-panel,.cursor-glow{display:none!important}#app-wrapper{opacity:1!important}</style></noscript>
+</head>
+<body>
+
+<!-- ══ PAGE LOADER (Split Panel Transition) ══════════════════════════════ -->
+<div id="loader">
+  <!-- Left Panel -->
+  <div class="loader-panel panel-left" id="doorLeft">
+    <div class="panel-content">
+      <!-- Logo -->
+      <div class="ldr-logo-wrap">
+        <img src="Life Line Hospital photos/Logo.png" alt="Life Line Hospital Logo" class="ldr-logo-img"/>
+        <div class="ldr-logo-glow"></div>
+      </div>
+      <!-- Hospital name -->
+      <div class="ldr-name-wrap">
+        <div class="ldr-name-line1">Life Line</div>
+        <div class="ldr-name-line2">Hospital</div>
+      </div>
+      <!-- ECG heartbeat canvas left -->
+      <canvas id="ecgCanvasLeft" class="ldr-ecg"></canvas>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="loader-panel panel-right" id="doorRight">
+    <div class="panel-content">
+      <!-- Logo -->
+      <div class="ldr-logo-wrap">
+        <img src="Life Line Hospital photos/Logo.png" alt="Life Line Hospital Logo" class="ldr-logo-img"/>
+        <div class="ldr-logo-glow"></div>
+      </div>
+      <!-- Hospital name -->
+      <div class="ldr-name-wrap">
+        <div class="ldr-name-line1">Life Line</div>
+        <div class="ldr-name-line2">Hospital</div>
+      </div>
+      <!-- ECG heartbeat canvas right -->
+      <canvas id="ecgCanvasRight" class="ldr-ecg"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CURSOR GLOW (desktop only) ══════════════════════════════════════ -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ══ APP WRAPPER ══════════════════════════════════════════════════════ -->
+<div id="app-wrapper">
+
+<!-- ══ NAVBAR ══════════════════════════════════════════════════════════ -->
+<nav id="navbar" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand" aria-label="Life Line Hospital — Home">
+      <div class="nav-logo">
+        <img src="Life Line Hospital photos/Logo.png" alt="Life Line Hospital Logo"/>
+      </div>
+      <div class="nav-name">Life Line Hospital <span>Multi-Specialty · Kadapa</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#doctors">Doctors</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="tel:+918556855699" class="nav-cta" aria-label="Call Life Line Hospital">📞 Call Now</a>
+    </div>
+    <button class="hamburger" id="menuBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+    <a href="#about" onclick="closeMob()">About Us</a>
+    <a href="#services" onclick="closeMob()">Services</a>
+    <a href="#doctors" onclick="closeMob()">Doctors</a>
+    <a href="#reviews" onclick="closeMob()">Reviews</a>
+    <a href="#appointment" onclick="closeMob()">Book Appointment</a>
+    <a href="#contact" onclick="closeMob()">Contact</a>
+    <a href="tel:+917070708556" aria-label="Emergency call">📞 Emergency: 70707 08556</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-grid-lines"></div>
+
+  <!-- Floating Medical Elements -->
+  <div class="float-elements" id="heroFloats" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow" id="heroEyebrow"><span class="stars">★★★★★</span> 4.5 Rated · 80+ Reviews · Justdial Verified</div>
+      <h1 class="hero-h1" id="heroH1">
+        Your Health Is<br>
+        <span class="line2">Our Priority</span>
+      </h1>
+      <p class="hero-sub" id="heroSub">24×7 Multi-Specialty Care in Kadapa. Trusted by thousands of patients — from routine consultations to critical emergencies, near 7 Roads Circle.</p>
+      <div class="hero-btns" id="heroBtns">
+        <a href="#appointment" class="btn-primary" aria-label="Book an appointment">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book Appointment
+        </a>
+        <a href="tel:+917070708556" class="btn-emg" aria-label="Call emergency number">🚨 Emergency: 70707 08556</a>
+      </div>
+      <div class="hero-stats" id="heroStats">
+        <div class="hero-stat-item"><div class="stat-num" data-count="24">0</div><div class="stat-lbl">Hrs Emergency</div></div>
+        <div class="hero-stat-item"><div class="stat-num" data-count="15">0</div><div class="stat-lbl">Specialties</div></div>
+        <div class="hero-stat-item"><div class="stat-num" data-count="5000">0</div><div class="stat-lbl">Patients Served</div></div>
+        <div class="hero-stat-item"><div class="stat-num">4.5★</div><div class="stat-lbl">Patient Rating</div></div>
+      </div>
+    </div>
+    <div class="hero-card" id="heroCard">
+      <div class="hic-head">
+        <div class="hic-cross" style="background:#fff">
+          <img src="Life Line Hospital photos/Logo.png" alt="Life Line Hospital Logo" style="width:80%;height:80%;object-fit:contain"/>
+        </div>
+        <div><div class="hic-title">Life Line Hospital</div><div class="hic-sub">Ganagapeta, Kadapa</div></div>
+      </div>
+      <hr class="hic-div"/>
+      <div class="hic-row"><span class="hic-icon">📍</span><div><div class="hic-lbl">Address</div><div class="hic-val">Khan Towers, Palem Papaiah St,<br>Near 7 Roads Circle</div></div></div>
+      <div class="hic-row"><span class="hic-icon">📞</span><div><div class="hic-lbl">Phone</div><div class="hic-val"><a href="tel:+918556855699" style="color:inherit;text-decoration:none">+91 85568 55699</a></div></div></div>
+      <div class="hic-row"><span class="hic-icon">🕐</span><div><div class="hic-lbl">Timing</div><div class="hic-badge"><span class="dot"></span>Open 24 Hours · 7 Days</div></div></div>
+      <a href="https://wa.me/918556855699" target="_blank" rel="noopener" class="wa-btn" aria-label="Chat on WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint" id="scrollHint">Scroll to explore<div class="scroll-arrow"></div></div>
+</section>
+
+<!-- ══ ECG SEPARATOR ═══════════════════════════════════════════════════ -->
+<div class="ecg-separator" aria-hidden="true">
+  <canvas id="ecgLoop"></canvas>
+</div>
+
+<!-- ══ SERVICES ══════════════════════════════════════════════════════════ -->
+<section id="services">
+  <div class="bg-particles" id="servicesParticles" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-head center reveal-up">
+      <div class="sec-label">What we treat</div>
+      <h2 class="sec-title">Our specialties & services</h2>
+      <div class="accent-line"></div>
+      <p class="sec-sub" style="margin-top:14px">Comprehensive care across 15+ medical specialties — all under one roof in Kadapa.</p>
+    </div>
+    <img src="Life Line Hospital photos/imgi_147_life-line-hospital-kadapa-1pozbpuoy2.jpg" alt="Life Line Hospital inpatient ward and ICU beds" class="services-img-banner reveal-scale" style="object-position: center 40%;" loading="lazy"/>
+    <div class="services-grid">
+      <div class="svc-card reveal-up stagger-1 tilt-card"><div class="svc-icon-wrap" style="background:#e3f2fd">❤️</div><div class="svc-name">Cardiology</div><div class="svc-desc">Heart conditions, hypertension, and cardiac emergency care.</div></div>
+      <div class="svc-card reveal-up stagger-2 tilt-card"><div class="svc-icon-wrap" style="background:#e8f5e9">🩸</div><div class="svc-name">Diabetology</div><div class="svc-desc">Expert management of diabetes and blood sugar conditions.</div></div>
+      <div class="svc-card reveal-up stagger-3 tilt-card"><div class="svc-icon-wrap" style="background:#fbe9e7">🩺</div><div class="svc-name">General Medicine</div><div class="svc-desc">Family medicine, diagnostics, fevers, and general healthcare.</div></div>
+      <div class="svc-card reveal-up stagger-4 tilt-card"><div class="svc-icon-wrap" style="background:#e0f7fa">🫁</div><div class="svc-name">Pulmonology</div><div class="svc-desc">Respiratory, asthma, and chronic lung disease treatment.</div></div>
+      <div class="svc-card reveal-up stagger-5 tilt-card"><div class="svc-icon-wrap" style="background:#e8f7ee">🏥</div><div class="svc-name">Critical Care / ICU</div><div class="svc-desc">24/7 fully-fledged advanced ICU care for critical cases.</div></div>
+      <div class="svc-card reveal-up stagger-6 tilt-card"><div class="svc-icon-wrap" style="background:#f3e5f5">🧠</div><div class="svc-name">Neurology / Neurosurgery</div><div class="svc-desc">Brain disorders, stroke intervention, and neuro-spine care.</div></div>
+      <div class="svc-card reveal-left stagger-1 tilt-card"><div class="svc-icon-wrap" style="background:#e8eaf6">🫀</div><div class="svc-name">Nephrology & Urology</div><div class="svc-desc">Comprehensive kidney care, dialysis, and urinary tract treatment.</div></div>
+      <div class="svc-card reveal-left stagger-2 tilt-card"><div class="svc-icon-wrap" style="background:#fff3e0">🦴</div><div class="svc-name">Orthopedics & Trauma</div><div class="svc-desc">Bone fractures, joint replacements, and emergency polytrauma care.</div></div>
+      <div class="svc-card reveal-right stagger-3 tilt-card"><div class="svc-icon-wrap" style="background:#e8f5e9">🩹</div><div class="svc-name">General Surgery</div><div class="svc-desc">Advanced open and laparoscopic surgical interventions.</div></div>
+      <div class="svc-card reveal-right stagger-4 tilt-card"><div class="svc-icon-wrap" style="background:#fff8e1">🔬</div><div class="svc-name">Gastroenterology</div><div class="svc-desc">Digestive tract issues, gastroscopy, and liver care.</div></div>
+      <div class="svc-card reveal-scale stagger-5 tilt-card"><div class="svc-icon-wrap" style="background:#fce4ec">🧴</div><div class="svc-name">Dermatology</div><div class="svc-desc">Skin care, hair, nail treatments, and cosmetic conditions.</div></div>
+      <div class="svc-card reveal-scale stagger-6 tilt-card"><div class="svc-icon-wrap" style="background:#fff3e0">🦷</div><div class="svc-name">Oral & Maxillofacial</div><div class="svc-desc">Advanced dental procedures, implants, and facial trauma repair.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY STRIP ════════════════════════════════════════════════════ -->
+<div id="gallery">
+  <div class="gallery-padding">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_123_life-line-hospital-6501179.webp" alt="Day Facade" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_18_life-line-hospital-6501180.webp" alt="Doctor Consultation" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_147_life-line-hospital-kadapa-1pozbpuoy2.jpg" alt="Inpatient Ward" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_19_life-line-hospital-6501186.webp" alt="ICU Bed" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_21_life-line-hospital-6501188.webp" alt="Nursing Station & Waiting Area" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_4_life-line-hospital-kadapa-d1uaodkaui-250.jpg" alt="Night Entrance Facade" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/WhatsApp Image 2026-07-04 at 14.48.38.jpeg" alt="Services Upgrade Flyer" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_123_life-line-hospital-6501179.webp" alt="Life Line Pharmacy Entrance" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <!-- Duplicates for seamless loop -->
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_123_life-line-hospital-6501179.webp" alt="Day Facade" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_18_life-line-hospital-6501180.webp" alt="Doctor Consultation" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_147_life-line-hospital-kadapa-1pozbpuoy2.jpg" alt="Inpatient Ward" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_19_life-line-hospital-6501186.webp" alt="ICU Bed" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_21_life-line-hospital-6501188.webp" alt="Nursing Station & Waiting Area" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_4_life-line-hospital-kadapa-d1uaodkaui-250.jpg" alt="Night Entrance Facade" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/WhatsApp Image 2026-07-04 at 14.48.38.jpeg" alt="Services Upgrade Flyer" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+      <div class="gallery-item"><img src="Life Line Hospital photos/imgi_123_life-line-hospital-6501179.webp" alt="Life Line Pharmacy Entrance" loading="lazy"/><div class="gallery-item-overlay"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DOCTORS ══════════════════════════════════════════════════════════ -->
+<section id="doctors">
+  <div class="float-elements" id="doctorFloats" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-head center reveal-up">
+      <div class="sec-label">Our Specialists</div>
+      <h2 class="sec-title">Meet our expert medical team</h2>
+      <div class="accent-line"></div>
+      <p class="sec-sub" style="margin-top:14px">Highly experienced professionals dedicated to round-the-clock multispecialty care in Kadapa.</p>
+    </div>
+    <div class="doc-grid">
+      <!-- Doctor 1 -->
+      <div class="doc-card reveal-scale stagger-1 tilt-card">
+        <div class="doc-left">
+          <div class="doc-img-wrap">
+            <img src="Life Line Hospital photos/imgi_18_life-line-hospital-6501180.webp" alt="Dr. Shaik Rabbani" class="doc-img" loading="lazy"/>
+            <div class="doc-status" aria-label="Available now"></div>
+          </div>
+          <div>
+            <div class="doc-name">Dr. Shaik Rabbani</div>
+            <div class="doc-qual">MBBS, MD (General Medicine)</div>
+            <span class="doc-spec-pill">Diabetologist</span>
+            <span class="doc-spec-pill">General Physician</span>
+            <div class="doc-stars">★★★★★</div>
+            <div class="doc-rt">4.5 / 5 · Chief Medical Officer</div>
+          </div>
+        </div>
+        <div class="doc-right">
+          <div class="doc-rl">Lead Physician</div>
+          <p class="doc-bio">Dr. Shaik Rabbani is the founder and lead doctor at Life Line Hospital. With decades of clinical excellence, he is widely regarded as one of the top specialists in Kadapa for diabetes management, hypertension, and emergency internal medicine.</p>
+          <div class="doc-tags">
+            <span class="doc-tag">Diabetology</span>
+            <span class="doc-tag">General Medicine</span>
+            <span class="doc-tag">ICU Care</span>
+          </div>
+          <div class="doc-rows">
+            <div class="doc-row">🕐 <span>Availability:</span> <em>24 Hours (On-Call)</em></div>
+            <div class="doc-row">🗣️ <span>Languages:</span> <em>Telugu, Urdu, Hindi, English</em></div>
+          </div>
+          <a href="#appointment" class="btn-book" onclick="selectDoctor('Dr. Shaik Rabbani', 'Diabetology')" aria-label="Book appointment with Dr. Shaik Rabbani">Book Appointment</a>
+        </div>
+      </div>
+
+      <!-- Doctor 2 -->
+      <div class="doc-card reveal-scale stagger-2 tilt-card">
+        <div class="doc-left">
+          <div class="doc-img-wrap">
+            <div class="doc-avatar-fallback">SA</div>
+            <div class="doc-status" aria-label="Available now"></div>
+          </div>
+          <div>
+            <div class="doc-name">Dr. Syed S. Ali</div>
+            <div class="doc-qual">MBBS, DCH (Pediatrics)</div>
+            <span class="doc-spec-pill">Pediatrician</span>
+            <span class="doc-spec-pill">Child Specialist</span>
+            <div class="doc-stars">★★★★★</div>
+            <div class="doc-rt">4.6 / 5 · 50+ Reviews</div>
+          </div>
+        </div>
+        <div class="doc-right">
+          <div class="doc-rl">Pediatric Consultant</div>
+          <p class="doc-bio">Dr. Syed S. Ali is a dedicated pediatrician providing child healthcare and immunizations. He heads the neonatal and pediatric emergency unit, ensuring prompt care for infants and young children in Kadapa.</p>
+          <div class="doc-tags">
+            <span class="doc-tag">Pediatric Care</span>
+            <span class="doc-tag">Vaccinations</span>
+            <span class="doc-tag">Child Emergency</span>
+          </div>
+          <div class="doc-rows">
+            <div class="doc-row">🕐 <span>Availability:</span> <em>10:00 AM – 4:00 PM</em></div>
+            <div class="doc-row">🗣️ <span>Languages:</span> <em>Telugu, Urdu, English</em></div>
+          </div>
+          <a href="#appointment" class="btn-book" onclick="selectDoctor('Dr. Syed S. Ali', 'Paediatrics')" aria-label="Book appointment with Dr. Syed S. Ali">Book Appointment</a>
+        </div>
+      </div>
+
+      <!-- Doctor 3 -->
+      <div class="doc-card reveal-scale stagger-3 tilt-card">
+        <div class="doc-left">
+          <div class="doc-img-wrap">
+            <div class="doc-avatar-fallback">SK</div>
+            <div class="doc-status" aria-label="Available now"></div>
+          </div>
+          <div>
+            <div class="doc-name">Dr. Shaik Karishma</div>
+            <div class="doc-qual">MBBS, MS (General Surgery)</div>
+            <span class="doc-spec-pill">General Surgeon</span>
+            <span class="doc-spec-pill">Plastic Surgery</span>
+            <div class="doc-stars">★★★★★</div>
+            <div class="doc-rt">4.8 / 5 · 40+ Reviews</div>
+          </div>
+        </div>
+        <div class="doc-right">
+          <div class="doc-rl">Surgical Specialist</div>
+          <p class="doc-bio">Dr. Shaik Karishma is an expert in laparoscopic surgeries, acute trauma care, and cosmetic/reconstructive plastic surgeries. She brings advanced surgical techniques and patient-centric recovery plans to the hospital.</p>
+          <div class="doc-tags">
+            <span class="doc-tag">Laparoscopy</span>
+            <span class="doc-tag">Plastic Surgery</span>
+            <span class="doc-tag">Trauma Surgery</span>
+          </div>
+          <div class="doc-rows">
+            <div class="doc-row">🕐 <span>Availability:</span> <em>2:00 PM – 8:00 PM</em></div>
+            <div class="doc-row">🗣️ <span>Languages:</span> <em>Telugu, Hindi, English</em></div>
+          </div>
+          <a href="#appointment" class="btn-book" onclick="selectDoctor('Dr. Shaik Karishma', 'General Surgery')" aria-label="Book appointment with Dr. Shaik Karishma">Book Appointment</a>
+        </div>
+      </div>
+
+      <!-- Doctor 4 -->
+      <div class="doc-card reveal-scale stagger-4 tilt-card">
+        <div class="doc-left">
+          <div class="doc-img-wrap">
+            <div class="doc-avatar-fallback">JR</div>
+            <div class="doc-status" aria-label="Available now"></div>
+          </div>
+          <div>
+            <div class="doc-name">Dr. A. Jagadeesh Reddy</div>
+            <div class="doc-qual">MBBS, MS (Orthopedics)</div>
+            <span class="doc-spec-pill">Orthopedic Surgeon</span>
+            <span class="doc-spec-pill">Polytrauma Expert</span>
+            <div class="doc-stars">★★★★★</div>
+            <div class="doc-rt">4.7 / 5 · 65+ Reviews</div>
+          </div>
+        </div>
+        <div class="doc-right">
+          <div class="doc-rl">Orthopedic Consultant</div>
+          <p class="doc-bio">Dr. Jagadeesh Reddy specializes in complex bone fracture treatments, joint replacement surgeries, and rehabilitation. He is our lead consultant for polytrauma and orthopedic emergencies.</p>
+          <div class="doc-tags">
+            <span class="doc-tag">Joint Replacement</span>
+            <span class="doc-tag">Fracture Care</span>
+            <span class="doc-tag">Polytrauma</span>
+          </div>
+          <div class="doc-rows">
+            <div class="doc-row">🕐 <span>Availability:</span> <em>11:00 AM – 7:00 PM</em></div>
+            <div class="doc-row">🗣️ <span>Languages:</span> <em>Telugu, Kannada, English</em></div>
+          </div>
+          <a href="#appointment" class="btn-book" onclick="selectDoctor('Dr. A. Jagadeesh Reddy', 'Orthopedics &amp; Trauma')" aria-label="Book appointment with Dr. A. Jagadeesh Reddy">Book Appointment</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ════════════════════════════════════════════════════════════ -->
+<section id="about">
+  <div class="bg-particles" id="aboutParticles" aria-hidden="true"></div>
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal-left">
+        <img src="Life Line Hospital photos/imgi_123_life-line-hospital-6501179.webp" alt="Life Line Hospital Kadapa exterior facade and pharmacy" loading="lazy"/>
+        <div class="about-img-overlay"></div>
+        <div class="about-img-badge">
+          <div><div class="aib-num">4.5★</div><div class="aib-lbl">Justdial Rating<br>80+ Reviews</div></div>
+        </div>
+        <div class="about-img-badge2">
+          <div class="aib2-num">24/7</div>
+          <div class="aib2-lbl">Open Always</div>
+        </div>
+      </div>
+      <div class="about-text reveal-right">
+        <div class="sec-label">About Us</div>
+        <h2 class="sec-title">A hospital the community trusts</h2>
+        <div class="accent-line"></div><br/>
+        <p>Life Line Hospital is a trusted multi-specialty hospital at 1B1, Pallempapiah Street, Ganagapeta, Kadapa — just 0.68 km from Cuddapah Railway Station, near the famous 7 Roads Circle.</p>
+        <p>We provide round-the-clock emergency care, specialist consultations, advanced diagnostics, and surgical services under one roof. Our team is led by Dr. Shaik Rabbani, one of the most highly regarded physicians in Kadapa.</p>
+        <ul class="about-list">
+          <li><span class="check-icon">✓</span>Open 24 hours, 7 days including all public holidays</li>
+          <li><span class="check-icon">✓</span>Wheelchair accessible parking and entrance</li>
+          <li><span class="check-icon">✓</span>Expert team led by Dr. Shaik Rabbani</li>
+          <li><span class="check-icon">✓</span>Fully equipped diagnostic lab and in-house pharmacy</li>
+          <li><span class="check-icon">✓</span>Emergency trauma care with rapid response team</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS ══════════════════════════════════════════════════════════ -->
+<section id="reviews">
+  <div class="container">
+    <div class="sec-head center reveal-up">
+      <div class="sec-label">Patient voices</div>
+      <h2 class="sec-title">What our patients say</h2>
+      <div class="accent-line"></div>
+    </div>
+    <div class="overall-card reveal-scale">
+      <div class="oc-bg"></div>
+      <div style="position:relative;z-index:1">
+        <div class="oc-num">4.5</div>
+        <div class="oc-stars">★★★★★</div>
+        <div class="oc-sub">80+ verified reviews on Justdial</div>
+      </div>
+      <div class="oc-bars">
+        <div class="oc-bar-row"><span class="oc-bar-lbl">5 star</span><div class="oc-track"><div class="oc-fill" style="--w:.72" data-w=".72"></div></div><span class="oc-pct">72%</span></div>
+        <div class="oc-bar-row"><span class="oc-bar-lbl">4 star</span><div class="oc-track"><div class="oc-fill" style="--w:.18" data-w=".18"></div></div><span class="oc-pct">18%</span></div>
+        <div class="oc-bar-row"><span class="oc-bar-lbl">3 star</span><div class="oc-track"><div class="oc-fill" style="--w:.06" data-w=".06"></div></div><span class="oc-pct">6%</span></div>
+        <div class="oc-bar-row"><span class="oc-bar-lbl">2 star</span><div class="oc-track"><div class="oc-fill" style="--w:.02" data-w=".02"></div></div><span class="oc-pct">2%</span></div>
+        <div class="oc-bar-row"><span class="oc-bar-lbl">1 star</span><div class="oc-track"><div class="oc-fill" style="--w:.02" data-w=".02"></div></div><span class="oc-pct">2%</span></div>
+      </div>
+    </div>
+
+    <!-- Testimonial Carousel -->
+    <div class="reviews-carousel reveal-up" id="reviewsCarousel">
+      <div class="reviews-track" id="reviewsTrack">
+        <div class="rev-card">
+          <div class="rev-quote">"</div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">Dr. Shaik Rabbani is truly exceptional. My father had been suffering from diabetes complications for years, and after consulting Dr. Rabbani his condition improved remarkably. The doctor took time to explain everything clearly and the staff was very supportive throughout.</p>
+          <div class="rev-author"><div class="rev-avatar">SM</div><div><div class="rev-name">Sabikzafar Mohammed</div><div class="rev-meta">Kadapa · Diabetes Treatment</div></div></div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-quote">"</div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">We brought our child in with a high fever at midnight and the emergency team responded immediately. Dr. Rabbani's diagnosis was spot-on and treatment was effective within hours. Highly recommend for any emergency — they truly care about their patients.</p>
+          <div class="rev-author"><div class="rev-avatar">RK</div><div><div class="rev-name">Ravi Kumar</div><div class="rev-meta">Ganagapeta · Paediatric Emergency</div></div></div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-quote">"</div>
+          <div class="rev-stars">★★★★☆</div>
+          <p class="rev-text">Very good hospital with experienced doctors. I consulted for my thyroid condition and was given a thorough examination and clear treatment plan. The lab reports came quickly and the pharmacy had all medicines in stock. The 24-hour availability is a huge advantage.</p>
+          <div class="rev-author"><div class="rev-avatar">LP</div><div><div class="rev-name">Lakshmi Prabha</div><div class="rev-meta">Kadapa · Thyroid Treatment</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Review slides"></div>
+  </div>
+</section>
+
+<!-- ══ APPOINTMENT ══════════════════════════════════════════════════════ -->
+<section id="appointment">
+  <div class="container">
+    <div class="appt-grid">
+      <div class="reveal-left">
+        <div class="sec-label">Get in touch</div>
+        <h2 class="sec-title">Book an appointment</h2>
+        <div class="accent-line"></div><br/>
+        <img src="Life Line Hospital photos/imgi_21_life-line-hospital-6501188.webp" alt="Reception desk and waiting lobby at Life Line Hospital" class="appt-feature-img" loading="lazy"/>
+        <p style="font-size:15px;color:var(--gray-text);margin-bottom:20px;line-height:1.8">Fill the form to request an appointment. We will confirm your slot via phone. For emergencies, call us directly — we are available 24 hours.</p>
+        <a href="tel:+918556855699" class="appt-ccard" aria-label="Call primary number"><div class="acc-icon" style="background:#e3f2fd">📞</div><div><div class="acc-lbl">Primary / WhatsApp</div><div class="acc-val">+91 85568 55699</div></div></a>
+        <a href="tel:+917070708556" class="appt-ccard" aria-label="Call emergency number"><div class="acc-icon" style="background:#e8f5e9">📱</div><div><div class="acc-lbl">Emergency / ICU</div><div class="acc-val">+91 70707 08556</div></div></a>
+        <a href="https://wa.me/918556855699" target="_blank" rel="noopener" class="appt-ccard" aria-label="Chat on WhatsApp"><div class="acc-icon" style="background:#e8f7ee">💬</div><div><div class="acc-lbl">WhatsApp Chat</div><div class="acc-val">+91 85568 55699</div></div></a>
+      </div>
+      <div class="reveal-right">
+        <div class="appt-form">
+          <div class="form-title">Request an appointment</div>
+          <form id="apptForm" onsubmit="submitForm(event)" novalidate>
+            <div class="form-grid">
+              <div class="fg"><label for="f-name">Full name *</label><input type="text" id="f-name" placeholder="Your full name" required autocomplete="name"/></div>
+              <div class="fg"><label for="f-phone">Phone number *</label><input type="tel" id="f-phone" placeholder="10-digit mobile" required autocomplete="tel"/></div>
+              <div class="fg"><label for="f-doctor">Doctor *</label>
+                <select id="f-doctor" required>
+                  <option value="">Select Doctor</option>
+                  <option value="Dr. Shaik Rabbani">Dr. Shaik Rabbani (Diabetologist)</option>
+                  <option value="Dr. Syed S. Ali">Dr. Syed S. Ali (Pediatrician)</option>
+                  <option value="Dr. Shaik Karishma">Dr. Shaik Karishma (General & Plastic Surgeon)</option>
+                  <option value="Dr. A. Jagadeesh Reddy">Dr. A. Jagadeesh Reddy (Orthopedic Surgeon)</option>
+                  <option value="General OPD">General OPD / Any Available</option>
+                </select>
+              </div>
+              <div class="fg"><label for="f-dept">Department *</label>
+                <select id="f-dept" required>
+                  <option value="">Select department</option>
+                  <option value="Diabetology">Diabetology</option>
+                  <option value="Paediatrics">Paediatrics</option>
+                  <option value="General Surgery">General & Plastic Surgery</option>
+                  <option value="Orthopedics & Trauma">Orthopedics & Trauma</option>
+                  <option value="Cardiology">Cardiology</option>
+                  <option value="Neurology / Neurosurgery">Neurology / Neurosurgery</option>
+                  <option value="Nephrology & Urology">Nephrology & Urology</option>
+                  <option value="Gastroenterology">Gastroenterology</option>
+                  <option value="Dermatology">Dermatology</option>
+                  <option value="Oral & Maxillofacial">Oral & Maxillofacial Surgery</option>
+                  <option value="General Medicine">General Medicine</option>
+                  <option value="Other">Other Specialty</option>
+                </select>
+              </div>
+              <div class="fg"><label for="f-date">Preferred date</label><input type="date" id="f-date"/></div>
+              <div class="fg"><label for="f-time">Preferred time</label>
+                <select id="f-time">
+                  <option value="Any Time">Any Time</option>
+                  <option value="Morning (9:00 AM - 1:00 PM)">Morning (9:00 AM - 1:00 PM)</option>
+                  <option value="Afternoon (1:00 PM - 5:00 PM)">Afternoon (1:00 PM - 5:00 PM)</option>
+                  <option value="Evening (5:00 PM - 8:00 PM)">Evening (5:00 PM - 8:00 PM)</option>
+                </select>
+              </div>
+              <div class="fg full"><label for="f-msg">Brief description</label><textarea id="f-msg" placeholder="Describe your symptoms..."></textarea></div>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+              Confirm Appointment Request
+            </button>
+            <div id="form-success" role="alert" aria-live="polite">✅ Thank you! We received your request. Our team will call you shortly to confirm.</div>
+            <div id="form-error" role="alert" aria-live="polite">⚠️ Something went wrong. Please try again or call us directly.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ═════════════════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-head reveal-up">
+      <div class="sec-label">Find us</div>
+      <h2 class="sec-title">Contact & location</h2>
+      <div class="accent-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="live-badge"><span class="live-dot"></span>Open right now — 24 Hours, 7 Days</div>
+        <div class="cr-rows">
+          <div class="cr"><div class="cr-icon">📍</div><div><div class="cr-lbl">Address</div><div class="cr-val">Khan Towers, Palem Papaiah Street, Ganagapeta,<br>Kadapa – 516001, Andhra Pradesh<br><span style="color:var(--gray-3);font-size:12px">Near 7 Roads Circle · 0.68 km from Cuddapah Railway Station</span></div></div></div>
+          <div class="cr"><div class="cr-icon">📞</div><div><div class="cr-lbl">Phone</div><div class="cr-val"><a href="tel:+918556855699">+91 85568 55699</a><br/><a href="tel:+917070708556">+91 70707 08556</a></div></div></div>
+          <div class="cr"><div class="cr-icon">💬</div><div><div class="cr-lbl">WhatsApp</div><div class="cr-val"><a href="https://wa.me/918556855699" target="_blank" rel="noopener">+91 85568 55699</a></div></div></div>
+          <div class="cr"><div class="cr-icon">🕐</div><div><div class="cr-lbl">Working hours</div><div class="cr-val">Open 24 Hours · All days including holidays</div></div></div>
+          <div class="cr"><div class="cr-icon">🚆</div><div><div class="cr-lbl">Nearest landmark</div><div class="cr-val">0.68 km from Cuddapah Railway Station</div></div></div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="map-wrap">
+          <iframe src="https://maps.google.com/maps?q=Life%20Line%20Hospital%20Palem%20Papaiah%20Street%20Ganagapeta%20Kadapa&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Life Line Hospital location"></iframe>
+        </div>
+        <div style="margin-top:12px;text-align:center">
+          <a href="https://maps.google.com/?q=Life+Line+Hospital+Palem+Papaiah+Street+Ganagapeta+Kadapa" target="_blank" rel="noopener" style="color:var(--navy-light);font-size:13px;font-family:var(--fh);font-weight:600;text-decoration:none">📍 Open in Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-wrap">
+        <div class="fl-icon">
+          <img src="Life Line Hospital photos/Logo.png" alt="Life Line Hospital Logo" style="width:100%;height:100%;object-fit:contain;border-radius:4px;"/>
+        </div>
+        <span class="fl-name">Life Line Hospital</span>
+      </div>
+      <p class="footer-tagline">Caring for Kadapa — 24 hours a day, 7 days a week. Your trusted multi-specialty hospital near 7 Roads Circle, Ganagapeta.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/918556855699" class="fsoc" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+        <a href="tel:+918556855699" class="fsoc" aria-label="Call">📞</a>
+        <a href="https://www.justdial.com/Kadapa/Life-Line-Hospital-Near-7-Roads-Circle-Ganagapeta/9999P8562-8562-190116141509-P8Q9_BZDET" class="fsoc" target="_blank" rel="noopener" aria-label="Justdial">⭐</a>
+      </div>
+    </div>
+    <div class="fcol"><h4>Quick links</h4><ul class="flinks"><li><a href="#about">About us</a></li><li><a href="#services">Services</a></li><li><a href="#doctors">Doctors</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#appointment">Book appointment</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="fcol"><h4>Specialties</h4><ul class="flinks"><li><a href="#services">Cardiology</a></li><li><a href="#services">Diabetology</a></li><li><a href="#services">Pulmonology</a></li><li><a href="#services">Neurology</a></li><li><a href="#services">Nephrology</a></li><li><a href="#services">Critical Care / ICU</a></li></ul></div>
+    <div class="fcol"><h4>Contact</h4><ul class="flinks"><li><a href="tel:+918556855699">📞 +91 85568 55699</a></li><li><a href="tel:+917070708556">📱 +91 70707 08556</a></li><li><a href="https://wa.me/918556855699" target="_blank" rel="noopener">💬 WhatsApp</a></li><li style="color:rgba(255,255,255,.4);font-size:12px;line-height:1.6">Khan Towers, Palem Papaiah St,<br>Ganagapeta, Kadapa–516001</li><li style="color:rgba(46,157,88,.9);font-size:12px;font-weight:600">● Open 24 Hours</li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Life Line Hospital. All rights reserved.</span>
+    <span>Designed with ❤️ for the people of Kadapa</span>
+  </div>
+</footer>
+
+</div> <!-- End #app-wrapper -->
+
+<!-- ══ STICKY MOBILE BOTTOM ACTION BAR ══════════════════════════════════ -->
+<div id="mobile-action-bar">
+  <a href="tel:+918556855699" class="bar-call" aria-label="Call hospital">
+    <span class="bar-icon">📞</span>Call
+  </a>
+  <a href="#appointment" class="bar-book" aria-label="Book appointment">
+    <span class="bar-icon">📅</span>Book
+  </a>
+  <a href="tel:+917070708556" class="bar-emergency" aria-label="Emergency call">
+    <span class="bar-icon">🚑</span>Emergency
+  </a>
+  <a href="https://wa.me/918556855699" target="_blank" rel="noopener" class="bar-whatsapp" aria-label="Chat on WhatsApp">
+    <span class="bar-icon">💬</span>WhatsApp
+  </a>
+</div>
+
+<script src="lifeline-hospital.js" defer></script>
+</body>
+</html>
