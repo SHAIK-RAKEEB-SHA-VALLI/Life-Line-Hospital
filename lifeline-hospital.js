@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   Life Line Hospital — Premium Motion Engine
+   Life Line Multi Specialty Hospital — Premium Motion Engine
    GPU-Accelerated · 60 FPS · Mobile-First
    ══════════════════════════════════════════════════════════════ */
 
@@ -802,7 +802,7 @@ function submitForm(e) {
       from_name: name, from_phone: phone, doctor_name: doctor,
       department: dept, preferred_date: date || 'Not specified',
       preferred_time: time || 'Any Time', message: msg || 'No additional notes.',
-      reply_to: phone, hospital_name: 'Life Line Hospital, Kadapa',
+      reply_to: phone, hospital_name: 'Life Line Multi Specialty Hospital, Kadapa',
     };
 
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
@@ -825,7 +825,7 @@ function submitForm(e) {
       });
   } else {
     const waText = encodeURIComponent(
-      `*Appointment Request — Life Line Hospital*\n\n` +
+      `*Appointment Request — Life Line Multi Specialty Hospital*\n\n` +
       `Name: ${name}\nPhone: ${phone}\n` +
       `Doctor: ${doctor}\nDepartment: ${dept}\n` +
       `Preferred Date: ${date || 'Flexible'}\n` +
